@@ -2,8 +2,8 @@ package ejercicio01;
 
 public class Hora {
 
-	private int hora;
-	private int minutos;
+	protected int hora;
+	protected int minutos;
 
 	public Hora(int hora, int minutos) {
 		super();
@@ -15,26 +15,30 @@ public class Hora {
 		return hora;
 	}
 
-	public void setHora(int hora) {
-		if (hora < 0 || hora > 23)
-			throw new IllegalArgumentException("\nError: La hora debe estar en un rango de 0-23.");
-		this.hora = hora;
+	public boolean setHora(int hora) {
+		boolean horaCambiada = false;
+		if (hora >= 0 && hora <= 23) {
+			this.hora = hora;
+			horaCambiada = true;
+		}
+		return horaCambiada;
 	}
 
 	public int getMinutos() {
 		return minutos;
 	}
 
-	public void setMinutos(int minutos) {
-		if (minutos < 0 || minutos > 60)
-			throw new IllegalArgumentException("\nError: Los minutos debens");
-		this.minutos = minutos;
+	public boolean setMinutos(int minutos) {
+		boolean minutosCambiados = false;
+		if (minutos >= 0 && minutos <= 59) {
+			this.minutos = minutos;
+			minutosCambiados = true;
+		}
+		return minutosCambiados;
 	}
 
 	public void inc() {
-		if (minutos != 60) {
-			minutos++;
-		}
+		minutos++;
 		if (minutos == 60) {
 			minutos = 0;
 			if (hora != 23) {
@@ -43,5 +47,10 @@ public class Hora {
 				hora = 0;
 			}
 		}
+	}
+
+	@Override
+	public String toString() {
+		return hora + ":" + String.format("%02d", minutos);
 	}
 }
